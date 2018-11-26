@@ -31,7 +31,8 @@ int begin;
 int duration;
 int time;
 
-
+//Font
+PFont font;
 
 //file reader stuff
 String[] words;
@@ -40,6 +41,9 @@ String[] words;
 void setup() {
   size(1200, 800);
   frameRate(120);
+  
+  font = loadFont("NP48.vlw");
+  textFont(font, 48);
   
   words = loadStrings("nounlist.txt");
   
@@ -78,7 +82,7 @@ void draw() {
 void goToStateHome() {
   state = State.HOME;
   
-  bgColor = color(255,255/2,0);
+  bgColor = color(241,196,15);
   mouseDownFlag = false;
   iteration = 0;
   origWord = getRandomWord();
@@ -115,7 +119,7 @@ void stateHome() {
 void goToStateInstructions() {
     state = State.INSTRUCTIONS;
     
-    bgColor = color(255/2,40,255);
+    bgColor = color(230,126,34);
     
 }
 
@@ -123,17 +127,24 @@ void stateInstructions() {
   
   background(bgColor);
   
-  fill(0);
+  fill(255);
   textSize(32);
-  text("instructions go here", width / 2, height / 2);
-  text("hit BACKSPACE to go back", width / 2, height / 2 + 40);
+  String instructionsAT3 = "This game requires a minimum of three players.\nPlayer One will view a random noun and"
+  + "\n" + "will attempt to draw a picture that represents that\nnoun within 30 seconds." 
+  + "\n" + "\n" + "DO NOT USE WORDS IN YOUR DRAWING.\n\nPlayer Two will see the picture that Player One drew" 
+  + "\n" + "and type what they think the word is."
+  + "\n" + "Clicking the 'done' button will allow you to see the"
+  + "\n" + "original word, Player One’s drawing,\nand Player Two’s guess.";
+
+  text(instructionsAT3, (width / 2) - 322, (height / 2) - 268);
+  text("hit BACKSPACE to go back", width / 2, (height / 2) + 315);
   
 }
 
 
 void goToStateStart() {
   
-    bgColor = color(255/2,255/2,255/2);
+    bgColor = color(142,68,173);
     
     iteration++;
     stroke(1);
@@ -145,24 +156,25 @@ void stateStart() {
   
   background(bgColor);
 
-  fill(0);
+  fill(255);
   textSize(32);
   text("pass computer to player " + (iteration), width / 2, height / 2);
-  text("click ready to begin", width / 2, height / 2 + 40);
+  text("click READY to begin", width / 2, height / 2 + 40);
   
-  stroke(1);
+  stroke(236, 240, 241);
   fill(bgColor);
+  strokeWeight(1);
   rect(width / 2, height / 2 + 50, 88, 40);
-  fill(0);
-  text("ready", width / 2, height / 2 + 80);
+  fill(255);
+  text("READY", width / 2 + 4, height / 2 + 82);
   
   
   if (iteration % 2 == 0 && iteration >= 4) {
-    text("click done to end", width / 2, height / 2 + 140);
+    text("click DONE to end", width / 2, height / 2 + 140);
     fill(bgColor);
     rect(width / 2, height / 2 + 150, 88, 40);
-    fill(0);
-    text("done", width / 2, height / 2 + 180);
+    fill(255);
+    text("DONE", width / 2 + 9, height / 2 + 181);
     
   }
   
@@ -180,13 +192,13 @@ void stateStart() {
 
 void goToStateDraw() {
   
-  bgColor = color(3*255/4,0,0);
+  bgColor = color(231, 76, 60);
   
   background(bgColor);
    
-  fill(0);
+  fill(255);
   textSize(24);
-  text("draw:  " + word, width / 2 - 40, 40);
+  text("DRAW:  " + word, width / 2 - 80, 36);
   
   fill(255);
   rect(50,50, width - 100, height - 100);
@@ -215,10 +227,10 @@ void stateDraw() {
   
   noStroke();
   fill(bgColor);
-  rect(width / 2 + width / 4, 10, 40, 40);
-  fill(0);
+  rect(width / 2 + width / 4  + 120, 10, 40, 40);
+  fill(255);
   textSize(24);
-  text(time, width / 2 + width / 4, 40);
+  text(time, width / 2 + width / 4 + 120, 36);
   
   updateTimer();
   
@@ -227,7 +239,9 @@ void stateDraw() {
 
 void goToStateGuess() {
   
-  bgColor = color(0,3*255/4,0);
+  brushThickness = 1;
+  
+  bgColor = color(26, 188, 156);
   
   guessTxt = "your guess here";
   temp = current;
@@ -249,12 +263,12 @@ void stateGuess() {
   fill(0);
   text("What did you see?", width/2, height/2);
   fill(color(255/2,255/2,255/2));
-  text("[ " + guessTxt + " ]", width/2 + 40, height/2 + 40);
+  text("[ " + guessTxt + " ]", width/2 + -1, height/2 + 40);
 }
 
 void goToStateEnd() {
   
-  bgColor = color(255,0,0);
+  bgColor = color(52,152,219);
   
   state = State.END;
 }
@@ -264,8 +278,8 @@ void stateEnd() {
   background(bgColor);
   
   textSize(32);
-  text("original word was: " + origWord, 20, height/2 - temp.height / 2 - 40);
-  text("last guess was: " + word, width - temp.width + 20, height/2 - temp.height / 2 - 40);
+  text("Original word was: " + origWord, 20, height/2 - temp.height / 2 - 40);
+  text("Last guess was: " + word, width - temp.width + 20, height/2 - temp.height / 2 - 40);
   
   PImage temp = first;
   temp.resize(0,width/3 - 20);
@@ -275,8 +289,8 @@ void stateEnd() {
   temp.resize(0,width/3 - 20);
   image(temp, width - temp.width, height/2 - temp.height / 2);
   
-  textSize(24);
-  text("Press enter to restart", width / 2 - 50, height - height / 16);
+  textSize(48);
+  text("Press enter to restart", width / 2 - 218, height - height / 2 + 306);
   
 }
 
