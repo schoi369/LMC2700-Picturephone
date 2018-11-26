@@ -3,7 +3,7 @@ import java.util.Random;
 
 //Constants
 final int MAX_PLAYERS = 12;
-final int TIME_IN_SEC = 2;
+final int TIME_IN_SEC = 30;
 final float BRUSH_MAX = 7.5;
 final color BRUSH_COLOR = color(0);
 
