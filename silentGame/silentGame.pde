@@ -34,6 +34,9 @@ int time;
 //Font
 PFont font;
 
+//Logo
+PImage logo;
+
 //file reader stuff
 String[] words;
 
@@ -43,6 +46,7 @@ void setup() {
   frameRate(120);
   
   font = loadFont("NP48.vlw");
+  logo = loadImage("logo.png");
   textFont(font, 48);
   
   words = loadStrings("nounlist.txt");
@@ -93,21 +97,23 @@ void goToStateHome() {
 void stateHome() {
   
   background(bgColor);
+
+  image(logo, width / 2 + -430, height / 2 + -141);
   
   textSize(48);
   fill(0);
-  text("START", width / 2 - 70, height / 2 - 80);
+  text("START", width / 2 - 70, height / 2 + 120);
   
   textSize(48);
   fill(0);
-  text("INSTRUCTIONS", width / 2 - 160, height / 2 + 120);
+  text("INSTRUCTIONS", width / 2 - 160, height / 2 + 200);
   
   
   if (mousePressed && mouseButton == LEFT && !mouseDownFlag) {
-    if (mouseIntersection(width / 2 - 70, height / 2 - 120, 158, 45)) {
+    if (mouseIntersection(width / 2 - 70, height / 2 + 80, 158, 45)) {
       goToStateStart();
     }
-    else if (mouseIntersection(width / 2 - 160, height / 2 + 80, 158 * 2 + 30, 45)) {
+    else if (mouseIntersection(width / 2 - 160, height / 2 + 160, 158 * 2 + 30, 45)) {
       goToStateInstructions();
     }
     mouseDownFlag = true;
