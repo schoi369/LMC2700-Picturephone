@@ -205,6 +205,8 @@ void goToStateDraw() {
   fill(255);
   textSize(24);
   text("DRAW:  " + word, width / 2 - 80, 36);
+  text("or press ENTER to be done", width - 300, height - 20);
+  text("RClick to clear canvas", 50, height - 20);
   
   fill(255);
   rect(50,50, width - 100, height - 100);
@@ -316,6 +318,7 @@ void updateTimer() {
   } else {
     fill(bgColor);
     rect(0,0,width,45);
+    rect(0,height - 45,width,45);
     current = get();
     if (iteration == 1) {
       first = current;
@@ -360,6 +363,18 @@ void keyPressed() {
   
   if (state == State.INSTRUCTIONS && keyCode == BACKSPACE) {
     goToStateHome();
+    return;
+  }
+  
+  if (state == State.DRAW && keyCode == ENTER) {
+    fill(bgColor);
+    rect(0,0,width,45);
+    rect(0,height - 45,width,45);
+    current = get();
+    if (iteration == 1) {
+      first = current;
+    }
+    goToStateStart();
     return;
   }
   
