@@ -1,6 +1,11 @@
 # Picturephone! - LMC 2700
 Game created for silent game project in Georgia Tech LMC 2700 Intro to Computational Media course.
 
+## How to start the game
+* Java Runtime Environment 1.8.0_74 Required.
+Open silentGame.exe inside \silentGame\application.windows32 or \silentGame\application.windows64.
+Game instructions are inside the game.
+
 ## Details
 Created with Processing.
 
